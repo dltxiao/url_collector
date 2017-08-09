@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body %}
+    {% for domain in domains %}
+        <li><a name='{{ domain.url }}' href="http://{{ domain.url }}" target="_blank">{{ domain.url }}</a>
+        <select name='{{ domain.url }}_id'>
+        {% for class in classes %}
+            {% if domain.classid == class.id %}
+            <option value={{ class.id }} selected="selected">{{ class.id }} {{ class.name}}</option>
+            {% endif %}
+            <option value={{ class.id }}>{{ class.id }} {{ class.name}}</option>
+        {% endfor %}
+        </select>
+        </br>
+    {% endfor %}
+{% endblock %}

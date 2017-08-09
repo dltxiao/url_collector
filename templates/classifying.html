@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block body %}
+    <form action='{{ url_for('classifying')}}' method='post'>
+    {% for domain in domains %}
+        <li><a href="http://{{ domain.url }}" target="_blank">{{ domain.url }}</a>
+        <input type=text name='{{ domain.url }}' value='{{ domain.url }}'>
+        <select name='{{ domain.url }}_id'>
+        {% for class in classes %}
+            <option value={{ class.id }}>{{ class.id }} {{ class.name}}</option>
+        {% endfor %}
+        </select>
+        </br>
+    {% endfor %}
+    <input type="submit" value="update">
+    </form>
+{% endblock %}
