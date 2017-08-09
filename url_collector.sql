@@ -39,7 +39,7 @@ insert into class ( id, name, parent_class ) values ( 3, '搜索', -1),
 (17, '公益' , -1),
 (18, '其他' , -1);
 
-insert into sub_class ( id, name, parent_class, description) values (120, 'Undefined', 18, '专业提供搜索服务的网站'),
+insert into sub_class ( id, name, parent_class, description) values (120, 'Undefined', 18, 'Undefined'),
 (128, '搜索引擎', 3, '专业提供搜索服务的网站'),
 (129, '导航门户', 4, '大型门户导航综合性网站'),
 (130, '新闻', 5, '侧重时政要闻的大型媒体网站'),
