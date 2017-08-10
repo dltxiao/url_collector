@@ -4,7 +4,8 @@ create table urls(
 	top varchar(32),
 	second varchar(128),
 	third varchar(128),
-	sub_class_id integer(16)
+	sub_class_id integer(16) default 120,
+	actived integer(4) NOT NULL default 1
 );
 
 drop table if exists class;

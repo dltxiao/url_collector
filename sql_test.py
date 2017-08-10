@@ -1,6 +1,6 @@
 import mysql.connector
 
-def sqlwrite(url):
+def sqlwrite(url, classid = 120):
     top = url.split('.')[-1]
     second = url.split('.')[-2]
     try:
@@ -11,11 +11,12 @@ def sqlwrite(url):
     cursor = conn.cursor()
     #cursor.execute('create table url2 (url char(128) primary key)')
     try:
-        cursor.execute('insert into urls (domain, top, second, third, sub_class_id) value (%s, %s, %s, %s, %s)', [url, top, second, third, 120])
+        cursor.execute('insert into urls (domain, top, second, third, sub_class_id) value (%s, %s, %s, %s, %s)', [url, top, second, third, classid])
         conn.commit()
     except:
         pass
     cursor.close()
 
 if __name__ == '__main__':
-    sqlwrite('test2.com')
+    sqlwrite('test2.com', 134)
+    sqlwrite('test3.com', 135)
