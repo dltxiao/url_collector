@@ -2,6 +2,7 @@
 
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 import mysql.connector
+from db2xlsx import export_xlsx
 
 DATABASE = 'url_collector'
 DB_USER = 'zhong'
@@ -30,8 +31,9 @@ def teardown_request(exception):
 @app.route('/', methods = ['GET', 'POST'])
 def index():
     session['anonymous']=True
-    g.cursor.execute('select domain,sub_class_id from urls order by second asc')
+    g.cursor.execute('select domain,sub_class_id from urls order by second asc limit 10 ')
     domains = [dict(url=row[0], classid=row[1]) for row in g.cursor.fetchall()]
+    print domains
     g.cursor.execute('select id,name from sub_class order by id asc')
     classes = [dict(id=row[0], name=row[1]) for row in g.cursor.fetchall()]
     return render_template('view_all.html', domains = domains, classes = classes)
@@ -79,6 +81,16 @@ def classifying():
         flash('Update %d records!' % update_count )
         return redirect(url_for('classifying'))
     return render_template('classifying.html',domains = domains, classes = classes)
+
+@app.route('/export', methods = ['GET'])
+def export():
+    g.cursor.execute('select domain,sub_class_id from urls where sub_class_id != 120 order by second asc')
+    classfied_urls = [dict(url=row[0], classid=row[1]) for row in g.cursor.fetchall()]
+    g.cursor.execute('select domain,sub_class_id from urls where sub_class_id = 120 order by second asc')
+    classfying_urls = [dict(url=row[0], classid=row[1]) for row in g.cursor.fetchall()]
+    export_xlsx(classfied_urls, classfying_urls)
+    flash('export test!')
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(
