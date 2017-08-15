@@ -6,7 +6,7 @@ import time
 
 def export_xlsx(classfied_urls, classfying_urls, invalid_urls = None):
     localtime = time.localtime(time.time())
-    filename = 'excel/' + str(time.time()) + '.xlsx'
+    filename = 'excel/' + str(time.time()) + '.xls'
     wbk = xlwt.Workbook()
     sheet_classfied = wbk.add_sheet('classfied')
     sheet_classfying = wbk.add_sheet('classfying')
