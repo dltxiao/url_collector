@@ -1,16 +1,19 @@
+#!/usr/bin/python
+#-*- coding:utf-8 -*-
+
 from downloader import download
 import re
 import urlparse
 import Queue 
 from sql_test import sqlwrite
+import argparse
 
-def link_crawler(seed_url, link_regex, max_depth=2):
+def link_crawler(seed_url, link_regex='', max_depth=2):
     crawler_queue = Queue.deque([seed_url])
     seen = {seed_url: 0}
     while crawler_queue:
         url = crawler_queue.pop()
         depth = seen[url]
-        print(depth)
         if depth != max_depth:
             html = download(url)
 #            print html
@@ -39,4 +42,11 @@ def get_domain(link):
     return domain_regex.findall(link)
 
 if __name__ == '__main__':
-    link_crawler('http://www.qq.com/','')
+    parser = argparse.ArgumentParser(description='manual to this script')
+    parser.add_argument('--seed', type=str, default=None)
+    parser.add_argument('--regex', type=str, default='')
+    parser.add_argument('--deepth', type=int, default=2)
+
+    args = parser.parse_args()
+
+    link_crawler(args.seed, args.regex, args.deepth)

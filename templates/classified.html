@@ -24,10 +24,10 @@
     <input type="submit" value="update">
     </form>
 <div class=pagewizard>
-    <a href="/classified/1"><<</a>
-    <a href="/classified/{{ pageid-1 }}"><</a>
-    <strong><a href="/classified/{{pageid}}"> {{ pageid }}</a></strong>
-    <a href="/classified/{{ pageid+1 }}">></a>
-    <a href="/classified/{{ page_max }}">>></a>
+    <a href="/classified/1">第一页</a>|
+    <a href="/classified/{{ pageid-1 }}">上一页</a>|
+    <strong><a href="/classified/{{pageid}}">共计{{ total }}条,当前{{ pageid }}/{{ page_max}}页</a></strong>|
+    <a href="/classified/{{ pageid+1 }}">下一页</a>|
+    <a href="/classified/{{ page_max }}">最后一页</a>
 </div>
 {% endblock %}
